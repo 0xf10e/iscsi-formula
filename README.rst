@@ -12,7 +12,7 @@ Pillar-data::
 
     iscsi-target:
         enabled: True
-        pidfile: 
+        pidfile: /var/run/cltd.pid # I guess?
         auth-groups:
             a-g-name: 
                 chaps:
