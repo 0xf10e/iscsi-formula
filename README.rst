@@ -3,14 +3,16 @@ iSCSI-Formula for SaltStack
 
 Configure iSCSI targets and initiator on FreeBSD 10.
 
-iscsi.targets
+iscsi.target
 -------------
-The state ``iscsi.targets`` generates ``/etc/ctl.conf``
+The state ``iscsi.target`` generates ``/etc/ctl.conf``
 for ``ctld(8)`` and enables the service.
 
 Pillar-data::
 
-    iscsi-targets:
+    iscsi-target:
+        enabled: True
+        pidfile: 
         auth-groups:
             a-g-name: 
                 chaps:
@@ -22,7 +24,9 @@ Pillar-data::
                 discovery-auth-group: name
             ...
         targets:
-            iqn.2008-04.com.example:target0:
+            # I think you have to quote the IQN or 
+            # YAML will have a fit b/c of the colon
+            'iqn.2008-04.com.example:target0':
                 auth-group: name
                 portal-group: name
                 luns:
@@ -42,7 +46,7 @@ initiator and enables the service ``iscsid(8)``.
 Pillar-structure::
 
     iscsi-initiator:
-        auto-connect: True
+        auto_connect: True
         targets:
             t0:
                 TargetAddress: 10.10.10.10
