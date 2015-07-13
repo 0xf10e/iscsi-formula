@@ -1,0 +1,53 @@
+iSCSI-Formula for SaltStack
+===========================
+
+Configure iSCSI targets and initiator on FreeBSD 10.
+
+iscsi.targets
+-------------
+The state ``iscsi.targets`` generates ``/etc/ctl.conf``
+for ``ctld(8)`` and enables the service.
+
+Pillar-data::
+
+    iscsi-targets:
+        auth-groups:
+            a-g-name: 
+                chaps:
+                    user: secret
+            ...
+        portal-groups:
+            pg-name:
+                listen: address
+                discovery-auth-group: name
+            ...
+        targets:
+            iqn.2008-04.com.example:target0:
+                auth-group: name
+                portal-group: name
+                luns:
+                    0: 
+                        path: /path/to
+                        size: 5G
+                    1: path
+                    ...
+            ...
+
+
+iscsi.initiator
+---------------
+The state ``iscsi.initiator`` states configures the iSCSI
+initiator and enables the service ``iscsid(8)``.
+
+Pillar-structure::
+
+    iscsi-initiator:
+        auto-connect: True
+        targets:
+            t0:
+                TargetAddress: 10.10.10.10
+                TargetName: iqn.2012-06.com.example:target0
+                AuthMethod: CHAP
+                chapIName: user
+                chapSecret: secretsecret
+            ...
