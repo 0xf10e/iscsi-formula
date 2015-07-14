@@ -6,7 +6,7 @@
       - template: jinja
       - user: root
       - group: wheel
-      - mode: 644
+      - mode: 640
 
 ctld:
     service.running:
